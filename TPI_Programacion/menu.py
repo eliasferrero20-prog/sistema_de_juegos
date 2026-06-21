@@ -5,7 +5,7 @@ def menu_principal():
         print("Menu de opciones de juegos")
         print("Selecciona el juego a jugar")
         print("Opcion 1 - Kiosco matematico")
-        print("Opcion 2 - ")
+        print("Opcion 2 - Piedra, Papel o Tijera ")
         print("Opcion 3 - ")
         print("Opcion 4 - ")
         print("Opcion 0 - Salir del sistema")
