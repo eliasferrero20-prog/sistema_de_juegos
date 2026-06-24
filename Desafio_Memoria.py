@@ -1,17 +1,10 @@
 def leer_parejas(nombre_archivo):
 
     parejas = []
-
-    archivo = open(nombre_archivo, "r")
-
-    for registro in archivo:
-
-        registro = registro.strip()
-
-        dato1, dato2 = registro.split(";")
-
-        parejas.append((dato1, dato2))
-
-    archivo.close()
-
+    with open(nombre_archivo, "r") as archivo:
+        registros = archivo.readlines()
+        for linea in registros:
+            linea = linea.strip()
+            dato1, dato2 = linea.split(";")
+            parejas.append((dato1, dato2))
     return parejas
