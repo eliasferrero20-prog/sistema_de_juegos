@@ -1,0 +1,20 @@
+Alemania;Berlin
+Argentina;Buenos Aires
+Australia;Canberra
+Bolivia;La Paz
+Brasil;Brasilia
+Chile;Santiago
+China;Pekin
+Colombia;Bogota
+Ecuador;Quito
+España;Madrid
+Estados Unidos;Washington
+Francia;Paris
+Italia;Roma
+Japon;Tokio
+Paraguay;Asuncion
+Peru;Lima
+Portugal;Lisboa
+Reino Unido;Londres
+Uruguay;Montevideo
+Venezuela;Caracas
