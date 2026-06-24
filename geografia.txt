@@ -7,7 +7,7 @@ Chile;Santiago
 China;Pekin
 Colombia;Bogota
 Ecuador;Quito
-España;Madrid
+Espana;Madrid
 Estados Unidos;Washington
 Francia;Paris
 Italia;Roma
