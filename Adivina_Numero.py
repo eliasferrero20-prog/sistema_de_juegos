@@ -31,3 +31,24 @@ while juego_activo == True:
         print("\nIngresaste una opcion incorrecta. El sistema por defecto selecciono el nivel INTERMEDIO")
         intentos_totales = 5
         max_numero = 100
+
+    numero_secreto = random.randint(0, max_numero)
+    intentos_actuales = 0
+    adivino = False
+
+    while intentos_actuales < intentos_totales and adivino == False:
+        es_numero_valido = False
+
+        while es_numero_valido == False:
+            try:
+                intento_usuario = int(input(f"\nIntento {intentos_actuales + 1}/{intentos_totales}. Ingresá un numero: "))
+                es_numero_valido = True
+            except ValueError:
+                print("¡Error! Ingresa un numero entero.")
+        
+        intentos_actuales += 1
+        if intento_usuario == numero_secreto:
+            print("¡FELICITACIONES", usuario+"!, ¡Adivinaste el numero secreto!")
+            adivino = True
+        elif intento_usuario < numero_secreto:
+            print("El numero secreto es MAYOR.")
