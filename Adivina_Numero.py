@@ -52,3 +52,23 @@ while juego_activo == True:
             adivino = True
         elif intento_usuario < numero_secreto:
             print("El numero secreto es MAYOR.")
+        else:
+            print("El numero secreto es MENOR.")
+
+    if adivino == False:
+        print("\n¡Te quedaste sin intentos", usuario+"! Perdiste.")
+        print("El numero secreto era: ", numero_secreto)
+    print()
+
+    print("1. Jugar otra partida")
+    print("2. Finalizar juego")
+
+    opcion = input("Elegí una opción (1 o 2): ")
+    if opcion == "1":
+        print("\nNUEVA RONDA PARA:",usuario)
+    elif opcion == "2":
+        print("\n¡Gracias por jugar",usuario+"!")
+        juego_activo = False
+    else:
+        print("\nOpción incorrecta. El programa finalizara.")
+        juego_activo = False
