@@ -1,5 +1,17 @@
 import random
 
+
+def pedir_numero_valido(numero_intento, total_intentos):
+    es_numero_valido = False
+    while es_numero_valido == False:
+        try:
+            valor_ingresado = int(input(f"\nIntento {numero_intento}/{total_intentos}. Ingresá un numero: "))
+            es_numero_valido = True
+        except ValueError:
+            print("¡Error! Ingresa un numero entero.")
+    return valor_ingresado
+
+
 print("\n========================================")
 print("     ¡BIENVENIDO AL JUEGO DE ADIVINAR!  ")
 print("========================================")
@@ -37,15 +49,8 @@ while juego_activo == True:
     adivino = False
 
     while intentos_actuales < intentos_totales and adivino == False:
-        es_numero_valido = False
+        intento_usuario = pedir_numero_valido(intentos_actuales + 1, intentos_totales)
 
-        while es_numero_valido == False:
-            try:
-                intento_usuario = int(input(f"\nIntento {intentos_actuales + 1}/{intentos_totales}. Ingresá un numero: "))
-                es_numero_valido = True
-            except ValueError:
-                print("¡Error! Ingresa un numero entero.")
-        
         intentos_actuales += 1
         if intento_usuario == numero_secreto:
             print("¡FELICITACIONES", usuario+"!, ¡Adivinaste el numero secreto!")
