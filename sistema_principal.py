@@ -62,6 +62,9 @@ def piedrapapeltijera():
     opcion="2"
     while opcion == "2":
         try:
+            print("\n==============================")
+            print("PIEDRA, PAPEL O TIJERA")
+            print("==============================")
             aleatorio2=random.choice(aleatorio)
             eleccion1=input("\n(Piedra, Papel o Tijera) ")
             eleccion1=eleccion1.lower()
@@ -266,8 +269,9 @@ def jugar_kiosco():
     jugar_otra_vez = "si"
 
     while jugar_otra_vez == "si":
-        print("Bienvenidos al kiosco matematico")
-
+        print("\n================================")
+        print("BIENVENIDOS AL KIOSKO MATEMÁTICO")
+        print("================================")
         mi_dinero = random.randint(500, 25000)
         print("Llegas al kiosco, miras tu bolsillo y tienes: ", mi_dinero)
 
@@ -306,8 +310,6 @@ def jugar_kiosco():
 
         print("Preciona enter para volver al menu principal...")
         input()
-
-import random
 
 def leer_parejas(nombre_archivo):
 
