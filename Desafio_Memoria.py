@@ -58,18 +58,21 @@ def pedir_posicion(filas, columnas, estado):
     posicion_valida = False
     while posicion_valida == False:
         print("\nIngrese 0 en la fila para abandonar la partida.")
-        fila = int(input("Ingrese la fila: "))
-        if fila == 0:
-            return -1, -1
-        columna = int(input("Ingrese la columna: "))
-        if fila < 1 or fila > filas:
-            print("Fila fuera de rango.")
-        elif columna < 1 or columna > columnas:
-            print("Columna fuera de rango.")
-        elif estado[fila - 1][columna - 1] != 0:
-            print("La carta seleccionada no está disponible.")
-        else:
-            posicion_valida = True
+        try:
+            fila = int(input("Ingrese la fila: "))
+            if fila == 0:
+                return -1, -1
+            columna = int(input("Ingrese la columna: "))
+            if fila < 1 or fila > filas:
+                print("Fila fuera de rango.")
+            elif columna < 1 or columna > columnas:
+                print("Columna fuera de rango.")
+            elif estado[fila - 1][columna - 1] != 0:
+                print("La carta seleccionada no está disponible.")
+            else:
+                posicion_valida = True
+        except ValueError:
+            print("\nDebe ingresar un número entero.")
     return fila - 1, columna - 1
 
 def mostrar_tablero(tablero, estado):
