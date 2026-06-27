@@ -28,5 +28,3 @@ def piedrapapeltijeras():
             opcion = input("\nIngresa una opcion del menu: ")
         except ValueError:
             print("\nDato ingresado no valido")
-
-piedrapapeltijeras()
