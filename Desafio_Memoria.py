@@ -72,7 +72,7 @@ def pedir_posicion(filas, columnas, estado):
             else:
                 posicion_valida = True
         except ValueError:
-            print("\nDebe ingresar un número entero.")
+            print("\nDebe ingresar una opción válida.")
     return fila - 1, columna - 1
 
 def mostrar_tablero(tablero, estado):
@@ -105,9 +105,12 @@ def seleccionar_categoria():
         print("\nSeleccione una categoría:")
         print("1 - Geografía")
         print("2 - Inglés")
-        opcion = int(input("\nIngrese una opción: "))
-        if opcion < 1 or opcion > 2:
-            print("\nOpción inválida.")
+        try:
+            opcion = int(input("\nIngrese una opción: "))
+            if opcion < 1 or opcion > 2:
+                print("\nOpción inválida.")
+        except ValueError:
+            print("\nError: debe ingresar una opción válida.")
     if opcion == 1:
         nombre_archivo = "geografia.txt"
         categoria = "Geografía"
@@ -210,14 +213,16 @@ def menu_principal():
         print("1 - Nueva partida")
         print("2 - Ver historial")
         print("3 - Salir")
-        opcion = int(input("\nIngrese una opción: "))
-        if opcion == 1:
-            nueva_partida()
-        elif opcion == 2:
-            mostrar_historial()
-        elif opcion == 3:
-            print("\n¡Gracias por jugar!")
-        else:
-            print("\nOpción inválida.")
-
+        try:
+            opcion = int(input("\nIngrese una opción: "))
+            if opcion == 1:
+                nueva_partida()
+            elif opcion == 2:
+                mostrar_historial()
+            elif opcion == 3:
+                print("\n¡Gracias por jugar!")
+            else:
+                print("\nOpción inválida.")
+        except ValueError:
+            print("\nError: debe ingresar una opción valida.")
 menu_principal()
