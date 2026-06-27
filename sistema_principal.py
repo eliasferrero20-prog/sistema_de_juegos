@@ -461,6 +461,10 @@ def nueva_partida():
     intentos = 0
     aciertos = 0
     partida_cancelada = False
+    if categoria == "Geografía":
+        print ("\nDebe unir paises con su respectiva capital.")
+    if categoria == "Inglés":
+        print ("\nDebe unir palabras en inglés con su traducción al español.")
     while aciertos < cantidad_parejas and partida_cancelada == False:
         print("\nIntentos:", intentos)
         print("Parejas encontradas:", aciertos, "de", cantidad_parejas)
@@ -528,7 +532,7 @@ def mostrar_historial():
                 print("Intentos:", datos[1])
                 print("Parejas:", datos[2])
                 print()
-    input("Presione ENTER para continuar...")
+    input("\nPresione ENTER para continuar...")
 
 def menu_principal_memoria():
 
