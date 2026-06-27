@@ -1,9 +1,9 @@
 def piedrapapeltijeras():
     import random
     aleatorio=["piedra", "papel", "tijera" ]
-    eleccion=True
+    opcion=2
     aleatorio2=random.choice(aleatorio)
-    while eleccion == True:
+    while opcion == 2:
         try:
             eleccion1=input("(Piedra, Papel o Tijera)")
             eleccion1=eleccion1.lower()
@@ -24,6 +24,7 @@ def piedrapapeltijeras():
                 print("Empate")
             else :
                 print("Dato ingresado no valido")
-            eleccion=False
+            print("2 = Seguir", "\n0 = Salir del juego")
+            opcion = input("Ingresa una opcion del menu: ")
         except ValueError:
             print("Dato ingresado no valido")
