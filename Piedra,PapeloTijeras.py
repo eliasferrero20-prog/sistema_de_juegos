@@ -1,4 +1,4 @@
-def piedrapapeltijeras():
+def piedrapapeltijera():
     import random
     aleatorio=["piedra", "papel", "tijera" ]
     opcion="2"
@@ -8,6 +8,8 @@ def piedrapapeltijeras():
             eleccion1=input("\n(Piedra, Papel o Tijera) ")
             eleccion1=eleccion1.lower()
             print("\n(Piedra, Papel o Tijera)", aleatorio2)
+            if eleccion1 == "tijeras":
+                eleccion1 = "tijera"
             if eleccion1 == "piedra" and aleatorio2 == "papel":
                 print("\nGanador: Papel")
             elif eleccion1 == "tijera" and aleatorio2 == "papel":
