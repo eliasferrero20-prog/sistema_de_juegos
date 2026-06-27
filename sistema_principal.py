@@ -95,8 +95,13 @@ def piedrapapeltijera():
 def pedir_numero_valido(numero_intento, total_intentos):
     es_numero_valido = False
     while es_numero_valido == False:
+        entrada = input(f"\nIntento {numero_intento}/{total_intentos}. Ingresá un numero.\nPara regresar al menu ingrese \"m\": ")
+ 
+        if entrada.lower() == "m":
+            return None
+
         try:
-            valor_ingresado = int(input(f"\nIntento {numero_intento}/{total_intentos}. Ingresá un numero: "))
+            valor_ingresado = int(entrada)
             es_numero_valido = True
         except ValueError:
             print("¡Error! Ingresa un numero entero.")
@@ -141,18 +146,26 @@ def adivina_numero():
         numero_secreto = random.randint(0, max_numero)
         intentos_actuales = 0
         adivino = False
+        volver_al_menu = False
 
-        while intentos_actuales < intentos_totales and adivino == False:
+        while intentos_actuales < intentos_totales and adivino == False and volver_al_menu == False:
             intento_usuario = pedir_numero_valido(intentos_actuales + 1, intentos_totales)
 
-            intentos_actuales += 1
-            if intento_usuario == numero_secreto:
-                print("¡FELICITACIONES", usuario + "!, ¡Adivinaste el numero secreto!")
-                adivino = True
-            elif intento_usuario < numero_secreto:
-                print("El numero secreto es MAYOR.")
+            if intento_usuario is None:
+                volver_al_menu = True
             else:
-                print("El numero secreto es MENOR.")
+                intentos_actuales += 1
+                if intento_usuario == numero_secreto:
+                    print("¡FELICITACIONES", usuario + "!, ¡Adivinaste el numero secreto!")
+                    adivino = True
+                elif intento_usuario < numero_secreto:
+                    print("El numero secreto es MAYOR.")
+                else:
+                    print("El numero secreto es MENOR.")
+
+        if volver_al_menu == True:
+            print("\nVolviendo al menú principal...")
+            return
 
         if adivino == False:
             print("\n¡Te quedaste sin intentos", usuario + "! Perdiste.")
