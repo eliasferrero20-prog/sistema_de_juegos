@@ -56,21 +56,24 @@ def crear_estado(filas, columnas):
 def pedir_posicion(filas, columnas, estado):
 
     posicion_valida = False
+    fila = -1
+    columna = -1
     while posicion_valida == False:
         print("\nIngrese 0 en la fila para abandonar la partida.")
         try:
             fila = int(input("Ingrese la fila: "))
             if fila == 0:
-                return -1, -1
-            columna = int(input("Ingrese la columna: "))
-            if fila < 1 or fila > filas:
-                print("Fila fuera de rango.")
-            elif columna < 1 or columna > columnas:
-                print("Columna fuera de rango.")
-            elif estado[fila - 1][columna - 1] != 0:
-                print("La carta seleccionada no está disponible.")
-            else:
                 posicion_valida = True
+            else:
+                columna = int(input("Ingrese la columna: "))
+                if fila < 1 or fila > filas:
+                    print("Fila fuera de rango.")
+                elif columna < 1 or columna > columnas:
+                    print("Columna fuera de rango.")
+                elif estado[fila - 1][columna - 1] != 0:
+                    print("La carta seleccionada no está disponible.")
+                else:
+                    posicion_valida = True
         except ValueError:
             print("\nDebe ingresar una opción válida.")
     return fila - 1, columna - 1
@@ -203,7 +206,7 @@ def mostrar_historial():
                 print()
     input("Presione ENTER para continuar...")
 
-def menu_principal():
+def menu_principal_memoria():
 
     opcion = 0
     while opcion != 3:
@@ -225,4 +228,5 @@ def menu_principal():
                 print("\nOpción inválida.")
         except ValueError:
             print("\nError: debe ingresar una opción valida.")
-menu_principal()
+
+menu_principal_memoria()
