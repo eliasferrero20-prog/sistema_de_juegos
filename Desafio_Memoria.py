@@ -1,7 +1,5 @@
 import random
 
-ANCHO = 16
-
 def leer_parejas(nombre_archivo):
 
     parejas = []
@@ -55,18 +53,14 @@ def crear_estado(filas, columnas):
     estado=[[0]*columnas for i in range(filas)]
     return estado
 
-def verificar_pareja(carta1, carta2):
-
-    resultado = 0
-    if carta1[1] == carta2[1]:
-        resultado = 1
-    return resultado
-
 def pedir_posicion(filas, columnas, estado):
 
     posicion_valida = False
     while posicion_valida == False:
+        print("\nIngrese 0 en la fila para abandonar la partida.")
         fila = int(input("Ingrese la fila: "))
+        if fila == 0:
+            return -1, -1
         columna = int(input("Ingrese la columna: "))
         if fila < 1 or fila > filas:
             print("Fila fuera de rango.")
@@ -78,75 +72,144 @@ def pedir_posicion(filas, columnas, estado):
             posicion_valida = True
     return fila - 1, columna - 1
 
-def completar_espacios(texto, ANCHO):
-
-    while len(texto) < ANCHO:
-        texto += " "
-    return texto
-
 def mostrar_tablero(tablero, estado):
 
-    cantidad_filas = len(tablero)
-    cantidad_columnas = len(tablero[0])
+    cantidad_filas = 4
+    cantidad_columnas = 4
     print()
     print("   ", end="")
     for j in range(cantidad_columnas):
-        texto = completar_espacios(str(j + 1), ANCHO)
-        print(texto, end="")
+        print(str(j + 1), end="\t")
     print()
     for i in range(cantidad_filas):
         print(str(i + 1) + " | ", end="")
         for j in range(cantidad_columnas):
             if estado[i][j] == 0:
-                texto = "[ ? ]"
+                print("[ ? ]", end="\t")
             else:
-                texto = tablero[i][j][0]
-            texto = completar_espacios(texto, ANCHO)
-            print(texto, end="")
+                print(tablero[i][j][0], end="\t")
         print()
 
 def seleccionar_categoria():
 
     opcion = 0
-    while opcion < 1 or opcion > 3:
+    while opcion < 1 or opcion > 2:
         print("\nSeleccione una categoría:")
         print("1 - Geografía")
-        print("2 - Matemática")
-        print("3 - Inglés")
+        print("2 - Inglés")
         opcion = int(input("\nIngrese una opción: "))
-        if opcion < 1 or opcion > 3:
+        if opcion < 1 or opcion > 2:
             print("\nOpción inválida.")
     if opcion == 1:
         nombre_archivo = "geografia.txt"
-    elif opcion == 2:
-        nombre_archivo = "matematica.txt"
+        categoria = "Geografía"
     else:
         nombre_archivo = "ingles.txt"
-    return nombre_archivo
+        categoria = "Inglés"
+    return nombre_archivo, categoria
 
-def seleccionar_dificultad():
+def nueva_partida():
+
+    print("\n=== NUEVA PARTIDA ===")
+    nombre_archivo, categoria = seleccionar_categoria()
+    filas = 4
+    columnas = 4
+    cantidad_parejas = 8
+    parejas = leer_parejas(nombre_archivo)
+    parejas = seleccionar_parejas(parejas, cantidad_parejas)
+    cartas = generar_cartas(parejas)
+    tablero = crear_tablero(cartas, filas, columnas)
+    estado = crear_estado(filas, columnas)
+    intentos = 0
+    aciertos = 0
+    partida_cancelada = False
+    while aciertos < cantidad_parejas and partida_cancelada == False:
+        print("\nIntentos:", intentos)
+        print("Parejas encontradas:", aciertos, "de", cantidad_parejas)
+        mostrar_tablero(tablero, estado)
+        fila1, columna1 = pedir_posicion(filas, columnas, estado)
+        if fila1 == -1:
+            partida_cancelada = True
+        else:
+            estado[fila1][columna1] = 1
+            mostrar_tablero(tablero, estado)
+            fila2, columna2 = pedir_posicion(filas, columnas, estado)
+            if fila2 == -1:
+                estado[fila1][columna1] = 0
+                partida_cancelada = True
+            else:
+                estado[fila2][columna2] = 1
+                mostrar_tablero(tablero, estado)
+                carta1 = tablero[fila1][columna1]
+                carta2 = tablero[fila2][columna2]
+                if carta1[1] == carta2[1]:
+                    estado[fila1][columna1] = 2
+                    estado[fila2][columna2] = 2
+                    aciertos += 1
+                    print("\n¡Encontraste una pareja!")
+                    input("\nPresione ENTER para continuar...")
+                else:
+                    print("\nNo forman una pareja.")
+                    input("\nPresione ENTER para continuar...")
+                    estado[fila1][columna1] = 0
+                    estado[fila2][columna2] = 0
+                intentos += 1
+    if partida_cancelada == True:
+        print("\nPartida cancelada.")
+        input("\nPresione ENTER para volver al menú principal...")
+    else:
+        print("\n===================================")
+        print("      PARTIDA FINALIZADA")
+        print("===================================")
+        print("\n¡Felicitaciones!")
+        print("Completaste el Desafío de Memoria.")
+        print("\nCategoría:", categoria)
+        print("Intentos realizados:", intentos)
+        print("Parejas encontradas:", aciertos, "de", cantidad_parejas)
+        guardar_historial(categoria, intentos, aciertos)
+        input("\nPresione ENTER para volver al menú principal...")
+
+def guardar_historial(categoria, intentos, aciertos):
+
+    with open("historial_memoria.txt", "a") as archivo:
+        archivo.write(categoria + ";")
+        archivo.write(str(intentos) + ";")
+        archivo.write(str(aciertos) + "\n")
+
+def mostrar_historial():
+
+    print("\n========== HISTORIAL ==========\n")
+    with open("historial_memoria.txt", "r") as archivo:
+        registros = archivo.readlines()
+        if len(registros) == 0:
+            print("Todavía no hay partidas registradas.")
+        else:
+            for linea in registros:
+                datos = linea.strip().split(";")
+                print("Categoría:", datos[0])
+                print("Intentos:", datos[1])
+                print("Parejas:", datos[2])
+                print()
+    input("Presione ENTER para continuar...")
+
+def menu_principal():
 
     opcion = 0
-    while opcion < 1 or opcion > 3:
-        print("\nSeleccione la dificultad:")
-        print("1 - Fácil (2 x 2)")
-        print("2 - Medio (4 x 4)")
-        print("3 - Difícil (4 x 5)")
+    while opcion != 3:
+        print("\n==============================")
+        print("     DESAFÍO DE MEMORIA")
+        print("==============================")
+        print("1 - Nueva partida")
+        print("2 - Ver historial")
+        print("3 - Salir")
         opcion = int(input("\nIngrese una opción: "))
-        if opcion < 1 or opcion > 3:
+        if opcion == 1:
+            nueva_partida()
+        elif opcion == 2:
+            mostrar_historial()
+        elif opcion == 3:
+            print("\n¡Gracias por jugar!")
+        else:
             print("\nOpción inválida.")
-    if opcion == 1:
-        filas = 2
-        columnas = 2
-        cantidad_parejas = 2
-    elif opcion == 2:
-        filas = 4
-        columnas = 4
-        cantidad_parejas = 8
-    else:
-        filas = 4
-        columnas = 5
-        cantidad_parejas = 10
 
-    return filas, columnas, cantidad_parejas
-
+menu_principal()
