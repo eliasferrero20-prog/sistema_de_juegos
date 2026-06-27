@@ -76,18 +76,23 @@ def mostrar_tablero(tablero, estado):
 
     cantidad_filas = 4
     cantidad_columnas = 4
+    ancho_columna = 16
     print()
-    print("   ", end="")
+    print("     ", end="")
     for j in range(cantidad_columnas):
-        print(str(j + 1), end="\t")
+        num_str = str(j + 1)
+        espacios_faltantes = ancho_columna - len(num_str)
+        print(num_str + (" " * espacios_faltantes), end="")
     print()
     for i in range(cantidad_filas):
-        print(str(i + 1) + " | ", end="")
+        print(" " + str(i + 1) + " | ", end="")
         for j in range(cantidad_columnas):
             if estado[i][j] == 0:
-                print("[ ? ]", end="\t")
+                texto_celda = "[ ? ]"
             else:
-                print(tablero[i][j][0], end="\t")
+                texto_celda = str(tablero[i][j][0])
+            espacios_faltantes = ancho_columna - len(texto_celda)
+            print(texto_celda + (" " * espacios_faltantes), end="")
         print()
 
 def seleccionar_categoria():
